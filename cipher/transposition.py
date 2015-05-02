@@ -57,27 +57,29 @@ def decode_transposition(text, key):
     return ''.join(decoded)
 
 
-# to_encode = input('Enter some text: ').strip()
-# key = int(input('Enter your caesar shift key: '))
-to_encode = "Common sense is not so common."
-key = 8
-encoded = encode_transposition(to_encode, key)
-print('Encoded: ')
-print(encoded)
-print('Decoded: ')
-# 'Encode' the decoded string using additive inverse or encoding key to decode
-print(decode_transposition(encoded, key))
+def main():
+    # to_encode = input('Enter some text: ').strip()
+    # key = int(input('Enter your caesar shift key: '))
+    to_encode = "Common sense is not so common."
+    key = 8
+    encoded = encode_transposition(to_encode, key)
+    print('Encoded: ')
+    print(encoded)
+    print('Decoded: ')
+    print(decode_transposition(encoded, key))
 
+    def encode_transposition_comp(text, key):
+        """Alternate version of transpo cipher using a list comprehension."""
+        encoded = []
+        for n in range(key):
+            # Columns are the characters divisible at each step in key range
+            col = [c for i, c in enumerate(text) if i % key == n]
+            # Now, recombine each column, per the cipher
+            encoded.append(''.join(col))
+        # Then join each column back into a single string
+        return(''.join(encoded))
 
-def encode_transposition_comp(text, key):
-    """Alternate version of transpo cipher using a list comprehension."""
-    encoded = []
-    for n in range(key):
-        # Columns are the characters divisible at each step in key range
-        col = [c for i, c in enumerate(text) if i % key == n]
-        # Now, recombine each column, per the cipher
-        encoded.append(''.join(col))
-    # Then join each column back into a single string
-    return(''.join(encoded))
+    # print(encode_transposition_comp(to_encode, key))
 
-# print(encode_transposition_comp(to_encode, key))
+if __name__ == '__main__':
+    main()
